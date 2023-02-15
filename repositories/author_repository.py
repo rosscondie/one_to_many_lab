@@ -47,3 +47,15 @@ def update(author):
     values = [author.first_name, author.last_name, author.id]
     run_sql(sql, values)
 
+def books(author):
+    books = []
+
+    sql = "SELECT * FROM books WHERE author_id = %s"
+    values = author.id
+    results = run_sql(sql, values)
+
+    for row in results:
+        book = Book(row['author_id'], row['title'], row['genre'], row['id'])
+        books.append(book)
+    return books
+
