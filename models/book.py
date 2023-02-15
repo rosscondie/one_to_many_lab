@@ -1,7 +1,9 @@
 class Book:
     def __init__(self, author, title, genre, id = None):
-        self.authour = author
+        self.author = author
         self.title = title
         self.genre = genre
         self.id = id
 
+    def __repr__(self):
+        return f"author: {self.author}\ntitle: {self.title}\ngenre: {self.genre}\nid: {self.id}"
