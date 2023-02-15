@@ -35,6 +35,14 @@ book_repository.save(book_4)
 book_5 = Book(author_4, "Harry Potter And The Chamer of Secrets", "Fantasy")
 book_repository.save(book_5)
 
+books = book_repository.select_all()
+authors = author_repository.select_all()
+
+for book in books:
+    print(book.__dict__)
+
+for author in authors:
+    print(author.__dict__)
 
 
 # pdb.set_trace() Delete this to stop having to quit out of pdb
