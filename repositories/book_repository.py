@@ -18,6 +18,19 @@ def select_all():
     results = run_sql(sql)
 
     for row in results:
-        book = Book(row['author_id'], row['title'], row['genre'], row['id'])
+        author = author_repository.select(row['author_id'])
+        book = Book(author, row['title'], row['genre'], row['id'])
         books.append(book)
     return books
+
+def select(id):
+    book = None
+    sql = "SELECT * FROM books WHERE id = %s"
+    values = [id]
+    results = run_sql(sql, values)
+
+    if results:
+        result = results[0]
+        author = author_repository.select(result['author_id'])
+        book = Book(author, result['title'], result['genre'], result['id'])
+    return book
