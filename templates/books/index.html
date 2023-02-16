@@ -5,13 +5,22 @@
 {% for book in all_books %}
 <table>
   <tr>
-    <td>Book Title: {{book.title}}</td>
+    <td><a href="/books/{{book.id}}">Book Title: {{book.title}}</td></a>
   </tr>
   <tr>
     <td>Author: {{book.author.first_name}} {{book.author.last_name}}</td>
   </tr>
   <tr>
     <td>Genre: {{book.genre}}</td>
+    <td>
+      <div>
+        <form action="/books/{{book.id}}/delete" method="POST">
+          <button class="trash-button">
+            <i class="fa fa-trash-o fa-2x" style="color:red"></i>
+          </button>
+        </form>
+      </div>
+    </td>
   </tr>
 </table>
 

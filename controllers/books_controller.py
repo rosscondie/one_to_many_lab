@@ -28,10 +28,24 @@ def new_book():
 # CREATE 
 # POST '/books'
 # Recieve the data from the form and put a new entry into the database
+@books_blueprint.route("/books", methods=["POST"])
+def create_book():
+    title = request.form['title']
+    author_id = request.form['author_id']
+    genre = request.form['genre']
+    author = author_repository.select(author_id)
+    book = Book(title, author, genre)
+    book_repository.save(book)
+    return redirect("/books")
+
 
 # SHOW
 # GET '/books/<id>' 
 # Return a seperate HTML file '/books/show.html'
+@books_blueprint.route("/books/<id>")
+def show_book(id):
+    book = book_repository.select(id)
+    return render_template("/books/show.html", book = book)
 
 # EDIT
 # GET '/books/<id>/edit'
@@ -44,3 +58,7 @@ def new_book():
 # DELETE
 # POST /'books/<id> 
 # Redirect back to '/books'
+@books_blueprint.route("/books/<id>/delete", methods=["POST"])
+def delete_book(id):
+    book_repository.delete(id)
+    return redirect("/books")
